@@ -54,17 +54,16 @@ INSERT INTO `abouts_team` VALUES (1, '我们的团队', '2017-11-26 18:27:13');
 -- Table structure for administrator
 -- ----------------------------
 DROP TABLE IF EXISTS `administrator`;
-CREATE TABLE `administrator`  (
-  `adminName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `adminPassword` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `permit` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`adminName`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+create table administrator
+(
+    adminName     varchar(20)  not null
+        primary key,
+    adminPassword varchar(100) null,
+    role          varchar(125) null
+)
+    charset = utf8;
 
--- ----------------------------
--- Records of administrator
--- ----------------------------
-INSERT INTO `administrator` VALUES ('admin', '0000', NULL);
+INSERT INTO jzt_db.administrator (adminName, adminPassword, role) VALUES ('admin', '9a2f2462c116baba9599358ac9219fed', 'administrator');
 
 -- ----------------------------
 -- Table structure for article
