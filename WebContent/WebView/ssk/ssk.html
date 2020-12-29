@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>西安科技大学大学生记者团</title>
+		<link rel="stylesheet" href="../css/clear_css.css" />
+		<link rel="stylesheet" href="../css/slideshow.css" />
+		<link rel="stylesheet" href="../css/main_template.css" />
+		<link rel="stylesheet" href="../css/text_template.css"/>
+		<style>
+			span[class='update_time']{
+				display:block;
+				text-align:right;
+				font-size:14px;
+			}
+			span[class='reviewAuthor']{
+				display: block;
+				font-size: 14px;
+				text-align: right;
+				padding-right: 60px;
+			}
+			
+			h3[class='reviewTitle']{
+				text-align: center;
+				line-height: 100px;
+				font-family: 'STZhongsong';
+				font-size: 20px;
+			}
+			h4[class='poetryTitle']{
+				text-align: center;
+				margin:5px 0px;
+			}
+			
+			span[class='sp'],
+			span[class='ys']{
+				display: block;
+				font-size: 18px;
+				margin: 20px 0px;
+				color: #6C2D2C;
+				font-weight: bold;
+				letter-spacing: 10px;
+			}
+	
+			span[class='poetryAuthor']{
+				display: block;
+				margin:5px 0px;
+				text-align: center;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="body">
+			<div class="head">
+				<img class="logo_text" src="../img/logo_text.png" />
+			</div>
+			<div class="navigation_bar">
+				<ul>
+					<li>
+						<a href="../index.html">首页</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+
+						</div>
+					</li>
+					<li>
+						<a href="../news/news_list.html">新闻</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">文学作品</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="../essay/essay_list.html?type=sw">散文</a>
+								</li>
+								<li>
+									<a href="../essay/essay_list.html?type=xs">小说</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">瞬 · 诗 · 刊</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="ssk_list.html?type=gts">古体诗</a>
+								</li>
+								<li>
+									<a href="ssk_list.html?type=jxds">现代诗</a>
+								</li>
+								<li>
+									<a href="ssk_list.html?type=ycs">原创诗</a>
+								</li>								
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">关于</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="../abouts/organization.html">组织简介</a>
+								</li>
+								<li>
+									<a href="../abouts/team.html">我们的团队</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="main_content">
+				<div class="current_title">
+					<p>瞬诗刊</p>
+				</div>
+				<div class="text">
+				
+				</div>
+			</div>
+			<div class="bottom">
+				<div class="lxwm">
+					<p>联系我们</p>
+					<p>新浪微博：@西安科技大学大学生记者团</p>
+					<p>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：xikejizhe@sina.com</p>
+				</div>
+				
+				<div class="qr_code">
+					<p>手机扫一扫，<br />即可关注我们！</p>
+					<img src="../img/qr_code/qrcode_for_xkjzt.jpg" />
+				</div>
+				<div class="last_line">
+					
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/navigation_bar_control.js" ></script>
+		<script type="text/javascript" src="../js/DateFormat.js"></script>
+		<script type="text/javascript" src="../js/GetRequestPara.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var reviewId = GetRequestPara("reviewId");
+				$.ajax({
+					type:"get",
+					url:"/JZTWebsite/getPoetryReviewById",
+					data:{"reviewId":reviewId},
+					dataType:"JSON",
+					async:false,
+					success:function(data){
+						var poetryReview = data.poetryReview;
+						var text = $(".text");
+						console.log(poetryReview)
+						$(".current_title>p").text("瞬诗刊  >> "+ poetryReview.poetryType + " >> " + 
+								(poetryReview.poetryType != "原创诗" ? poetryReview.reviewTitle : poetryReview.poetryTitle));
+						
+						if(poetryReview.poetryType != "原创诗"){
+							var reviewTitle = $("<h3 class='reviewTitle'>");
+							reviewTitle.text(poetryReview.reviewTitle);
+							text.append(reviewTitle);
+					
+							var reviewAuthor = $("<span class='reviewAuthor'>");
+							reviewAuthor.text(poetryReview.reviewAuthor);
+							text.append(reviewAuthor);
+		
+							var ysSpan = $("<span class='ys'>");
+							ysSpan.text("原诗:");
+							text.append(ysSpan);				
+						}
+						
+						var poetryTitle = $("<h4 class='poetryTitle'>");
+						poetryTitle.text(poetryReview.poetryTitle);
+						text.append(poetryTitle);
+						
+						var poetryAuthor = $("<span class='poetryAuthor'>")
+						poetryAuthor.text(poetryReview.poetryAuthor);
+						text.append(poetryAuthor);
+						
+						var poetryContent = $("<p class='poetryContent'>");
+						poetryContent.append(poetryReview.poetryContent);
+						if(poetryReview.poetryAlign == "center"){
+							poetryContent.css("text-align","center");
+						}
+						text.append(poetryContent);
+						
+						if(poetryReview.poetryType != "原创诗"){
+							var spSpan = $("<span class='sp'>");
+							spSpan.text("诗评：");
+							text.append(spSpan);
+							
+							var reviewContent = $("<p class='reviewContent'>");
+							reviewContent.text(poetryReview.reviewContent);
+							text.append(reviewContent);
+						}else{
+							poetryTitle.css("line-height","100px");
+							poetryTitle.css("font-family","STZhongsong");
+							poetryTitle.css("font-size","20px");
+							poetryAuthor.css("text-align","right");
+							poetryAuthor.css("padding-right","60px");
+						}
+						
+						if(typeof(poetryReview.illuatrationPictureSrc) != undefined && 
+								poetryReview.illuatrationPictureSrc != null &&
+								poetryReview.illuatrationPictureSrc != ""){
+							var img = $("<img>").attr("src","/"+poetryReview.illuatrationPictureSrc);
+							img.css("display","block");
+							img.css("box-sizing","border-box");
+							img.css("margin","15px auto");
+							
+							var imgTemp = new Image();
+							imgTemp.src = "/"+poetryReview.illuatrationPictureSrc;
+							imgTemp.onload = function(){
+								if(imgTemp.width > 900){
+									img.css("width","900px");
+								}else{
+									img.css("width","");
+								}
+								if(poetryReview.poetryType == "原创诗"){
+									poetryContent.after(img);
+								}else{
+									reviewContent.after(img);
+								}
+							}
+						}
+						var time = $("<span class='update_time'>");
+						time.text(new Date(poetryReview.updateTime).Format("yyyy年MM月dd日 hh时mm分"));
+						text.append(time);
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

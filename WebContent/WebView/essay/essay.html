@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>西安科技大学大学生记者团</title>
+		<link rel="stylesheet" href="../css/clear_css.css" />
+		<link rel="stylesheet" href="../css/slideshow.css" />
+		<link rel="stylesheet" href="../css/main_template.css" />
+		<link rel="stylesheet" href="../css/text_template.css"/>
+		<style type="text/css">
+			span[class='update_time']{
+				display:block;
+				text-align:right;
+				font-size:14px;
+			}
+			span[class='author']{
+				display: block;
+				font-size: 14px;
+				text-align: right;
+				padding-right: 60px;
+			}
+			h3[class='articleTitle']{
+				text-align: center;
+				line-height: 100px;
+				font-family: 'STZhongsong';
+			}
+		</style>
+	</head>
+	<body>
+		<div class="body">
+			<div class="head">
+				<img class="logo_text" src="../img/logo_text.png" />
+			</div>
+			<div class="navigation_bar">
+				<ul>
+					<li>
+						<a href="../index.html">首页</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+
+						</div>
+					</li>
+					<li>
+						<a href="../news/news_list.html">新闻</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">文学作品</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="essay_list.html?type=sw">散文</a>
+								</li>
+								<li>
+									<a href="essay_list.html?type=xs">小说</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">瞬 · 诗 · 刊</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="../ssk/ssk_list.html?type=gts">古体诗</a>
+								</li>
+								<li>
+									<a href="../ssk/ssk_list.html?type=jxds">近现代诗</a>
+								</li>
+								<li>
+									<a href="../ssk/ssk_list.html?type=ycs">原创诗</a>
+								</li>								
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">关于</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="../abouts/organization.html">组织简介</a>
+								</li>
+								<li>
+									<a href="../abouts/team.html">我们的团队</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="main_content">
+				<div class="current_title">
+					<p>瞬诗刊</p>
+				</div>
+				<div class="text">
+				
+				</div>
+
+				
+			</div>
+			<div class="bottom">
+				<div class="lxwm">
+					<p>联系我们</p>
+					<p>新浪微博：@西安科技大学大学生记者团</p>
+					<p>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：xikejizhe@sina.com</p>
+				</div>
+				
+				<div class="qr_code">
+					<p>手机扫一扫，<br />即可关注我们！</p>
+					<img src="../img/qr_code/qrcode_for_xkjzt.jpg" />
+				</div>
+				<div class="last_line">
+					
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/navigation_bar_control.js"></script>
+		<script type="text/javascript" src="../js/GetRequestPara.js"></script>
+		<script type="text/javascript" src="../js/DateFormat.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var articleId = GetRequestPara("articleId");
+				$.ajax({
+					type:"get",
+					url:"/JZTWebsite/getArticleById",
+					dataType:"json",
+					data:{"articleId":articleId},
+					async:false,
+					success:function(data){
+						var article = data.article;
+						var text = $(".text");
+						
+						var articleTitle = $("<h3 class='articleTitle'>");
+						$(".current_title>p").text("文学作品 >> " + article.articleType + " >> " + article.articleTitle);
+						articleTitle.text(article.articleTitle);
+						text.append(articleTitle);
+						
+						var author = $("<span class='author'>");
+						author.text(article.articleAuthor);
+						text.append(author);
+						
+						var p = $("<p>");
+						p.append(article.articleContent);
+						text.append(p);
+						
+						if(typeof(article.illuatrationPictureSrc) != undefined && article.illuatrationPictureSrc != null && article.illuatrationPictureSrc != ""){
+							var img = $("<img>").attr("src","/"+article.illuatrationPictureSrc);
+							img.css("display","block");
+							img.css("box-sizing","border-box");
+							img.css("margin","15px auto");
+							
+							var imgTemp = new Image();
+							imgTemp.src = "/"+article.illuatrationPictureSrc;
+							imgTemp.onload = function(){
+								if(imgTemp.width > 900){
+									img.css("width","900px");
+								}else{
+									img.css("width","");
+								}
+								p.after(img);
+							}
+						}
+						var time = $("<span class='update_time'>");
+						time.text(new Date(article.updateTime).Format("yyyy年MM月dd日 hh时mm分"));
+						text.append(time);
+					},
+					error:function(){
+						alert("服务器错误");
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

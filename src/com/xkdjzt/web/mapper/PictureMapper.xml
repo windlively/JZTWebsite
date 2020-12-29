@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.xkdjzt.web.dao.IPictureDao">
+		<select id="getIndexPictures" resultType="picture">
+			SELECT * FROM picture WHERE pictureType = 'index'
+		</select>
+		
+		<insert id="addPicture" parameterType="picture">
+			INSERT INTO picture VALUES (DEFAULT,#{pictureType},#{pictureName},#{pictureInfo},#{pictureSrc})
+		</insert>
+		
+		<delete id="deletePictureById" parameterType="int">
+			DELETE FROM picture WHERE pictureId = #{pictureId}
+		</delete>
+		
+		<update id="updatePictureById">
+			UPDATE picture 
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="pictureType != null and '' != pictureType">
+					pictureType = #{pictureType},	
+				</if>
+				<if test="pictureName != null and '' != pictureName">
+					pictureName = #{pictureName},
+				</if>
+				<if test="pictureInfo != null and '' != pictureInfo">
+					pictureInfo = #{pictureInfo},
+				</if>
+				<if test="pictureSrc != null and '' != pictureSrc">
+					pictureSrc = #{pictureSrc}
+				</if>
+			</trim>
+			WHERE pictureId = #{pictureId}
+		</update>
+    </mapper>

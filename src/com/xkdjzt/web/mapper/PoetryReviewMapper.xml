@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.xkdjzt.web.dao.IPoetryReviewDao">
+		<parameterMap type="map" id="pageParameter">
+    		<parameter property="startIndex" javaType="int"/>
+    		<parameter property="itemCount" javaType="int"/>
+    	</parameterMap>
+    	<!-- 
+    	<parameterMap type="map" id="searchPara">
+    		<parameter property="reviewTitle" javaType="String"/>
+    		<parameter property="poetryTitle" javaType="String"/>
+    		<parameter property="reviewAuthor" javaType="String"/>
+    		<parameter property="poetryAuthor" javaType="String"/>
+    		<parameter property="startDate" javaType="java.util.Date"/>
+    		<parameter property="endDate" javaType="java.util.Date"/>
+    		<parameter property="startIndex" javaType="int"/>
+    		<parameter property="itemCount" javaType="int"/>
+    	</parameterMap>
+    	 -->
+    	<insert id="addPoetryReview" parameterType="poetryReview">
+    		INSERT INTO poetry_review VALUES (DEFAULT,#{poetryType},#{reviewTitle},#{poetryTitle},#{poetryAuthor},#{poetryAlign},#{poetryContent},#{reviewAuthor},#{reviewContent},#{illuatrationPictureSrc},0,NOW(),NOW())
+    	</insert>
+    	
+    	<select id="getPoetryReviewListByPage" resultType="poetryReview" parameterMap="pageParameter">
+    		SELECT * FROM poetry_review ORDER BY reviewId DESC LIMIT #{startIndex},#{itemCount} 
+    	</select>
+    	
+    	<select id="search" resultType="poetryReview" parameterType="map">
+    		SELECT * FROM poetry_review 
+    			<trim prefix="WHERE" suffixOverrides="AND">
+    				<if test="reviewTitle != null and reviewTitle != '' ">
+    					reviewTitle LIKE CONCAT('%',#{reviewTitle},'%') AND
+    				</if>
+    				<if test="poetryTitle != null and poetryTitle != '' ">
+    					poetryTitle LIKE CONCAT('%',#{poetryTitle},'%') AND
+    				</if>
+    				<if test="poetryAuthor != null and poetryAuthor != '' ">
+    					poetryAuthor LIKE CONCAT('%',#{poetryAuthor},'%') AND
+    				</if>
+    				<if test="reviewAuthor != null and reviewAuthor != '' ">
+    					reviewAuthor like CONCAT('%',#{reviewAuthor},'%') AND
+    				</if>
+    				<if test="poetryType != null and poetryType != '' and 'allPoetryReview' != poetryType ">
+    					poetryType = #{poetryType} AND
+    				</if>
+    				<if test="poetryType == 'allPoetryReview'">
+						poetryType != '原创诗' AND
+    				</if>
+    				<if test="startDate != null">
+	    				uploadTime &gt; #{startDate} AND
+	    			</if>
+					<if test="endDate != null">
+	    				uploadTime &lt; #{endDate}
+	    			</if>
+    			</trim>
+    			ORDER BY reviewId DESC
+    		    <if test="itemCount &gt; 0 ">
+    			 	LIMIT #{startIndex},#{itemCount}
+    			</if>
+    	</select>
+    	
+    	<select id="getSearchedCount" resultType="int" parameterType="map">
+    		SELECT COUNT(*) FROM poetry_review 
+    			<trim prefix="WHERE" suffixOverrides="AND">
+    				<if test="reviewTitle != null and reviewTitle != '' ">
+    					reviewTitle LIKE CONCAT('%',#{reviewTitle},'%') AND
+    				</if>
+    				<if test="poetryTitle != null and poetryTitle != '' ">
+    					poetryTitle LIKE CONCAT('%',#{poetryTitle},'%') AND
+    				</if>
+    				<if test="poetryAuthor != null and poetryAuthor != '' ">
+    					poetryAuthor LIKE CONCAT('%',#{poetryAuthor},'%') AND
+    				</if>
+    				<if test="reviewAuthor != null and reviewAuthor != '' ">
+    					reviewAuthor LIKE CONCAT('%',#{reviewAuthor},'%') AND
+    				</if>
+    				<if test="poetryType != null and poetryType != '' and 'allPoetryReview' != poetryType ">
+    					poetryType = #{poetryType} AND
+    				</if>
+    				<if test="poetryType == 'allPoetryReview'">
+						poetryType != '原创诗' AND
+    				</if>
+    				<if test="startDate != null">
+	    				uploadTime &gt; #{startDate} AND
+	    			</if>
+					<if test="endDate != null">
+	    				uploadTime &lt; #{endDate}
+	    			</if>
+    			</trim>
+    	</select>
+    	
+    	<select id="getPoetryReviewCount" resultType="int">
+    		SELECT COUNT(*) FROM poetry_review;
+    	</select>
+    	
+    	<select id="getPoetryReviewById" resultType="poetryReview" parameterType="int">
+    		SELECT * FROM poetry_review WHERE reviewId = #{reviewId}
+    	</select>
+    	
+    	
+    	<update id="addReadAmounts" parameterType="int">
+    		UPDATE poetry_review SET readAmounts = readAmounts + 1 WHERE reviewId = #{reviewId}
+    	</update>
+    	
+    	<update id="updatePoetryReview" parameterType="poetryReview">
+    		UPDATE poetry_review SET
+    			poetryType = #{poetryType},
+    			reviewTitle = #{reviewTitle},
+    			poetryTitle = #{poetryTitle},
+    			poetryAuthor = #{poetryAuthor},
+    			poetryAlign = #{poetryAlign},
+    			poetryContent = #{poetryContent},
+    			reviewAuthor = #{reviewAuthor},
+    			reviewContent = #{reviewContent},
+    			illuatrationPictureSrc = #{illuatrationPictureSrc},
+    			updateTime = NOW()
+    		WHERE reviewId = #{reviewId}
+    	</update>
+    	
+    	<delete id="deletePoetryReview">
+    		DELETE FROM poetry_review WHERE reviewId = #{reviewId}
+    	</delete>
+    </mapper>

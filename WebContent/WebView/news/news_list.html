@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>西安科技大学大学生记者团</title>
+		<link rel="stylesheet" href="../css/clear_css.css" />
+		<link rel="stylesheet" href="../css/slideshow.css" />
+		<link rel="stylesheet" href="../css/main_template.css" />
+		<link rel="stylesheet" href="../css/list_template.css" />
+	</head>
+	<body>
+		<div class="body">
+			<div class="head">
+				<img class="logo_text" src="../img/logo_text.png" />
+			</div>
+			<div class="navigation_bar">
+				<ul>
+					<li>
+						<a href="../index.html">首页</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+
+						</div>
+					</li>
+					<li>
+						<a href="news_list.html">新闻</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">文学作品</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="../essay/essay_list.html?type=sw">散文</a>
+								</li>
+								<li>
+									<a href="../essay/essay_list.html?type=xs">小说</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">瞬 · 诗 · 刊</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="../ssk/ssk_list.html?type=gts">古体诗</a>
+								</li>
+								<li>
+									<a href="../ssk/ssk_list.html?type=jxds">近现代诗</a>
+								</li>
+								<li>
+									<a href="../ssk/ssk_list.html?type=ycs">原创诗</a>
+								</li>								
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="javascript:">关于</a>
+						<div class="navigation_effect"></div>
+						<div class="down_list">
+							<ul>
+								<li>
+									<a href="../abouts/organization.html">组织简介</a>
+								</li>
+								<li>
+									<a href="../abouts/team.html">我们的团队</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="main_content">
+				<div class="current_title">
+					<p>新闻</p>
+				</div>
+
+				<div class="article_list">
+					<ul class="list_header">
+						<li>标题</li>
+						<li>作者</li>
+						<li>上传时间</li>
+						<li>阅读量</li>
+					</ul>
+
+				</div>
+
+				<div class="page_control">
+
+					<ul>
+
+						<li>
+							<a class="last_page" href="javascript:">末 页</a>
+						</li>
+						<li>
+							<a class="next_page" href="javascript:">下一页</a>
+						</li>
+						<li>
+							<a class="pre_page" href="javascript:">上一页</a>
+						</li>
+						<li>
+							<a class="first_page" href="javascript:">首 页</a>
+						</li>
+						<li class="page_index">
+							第<span class="current_page">0</span>页|共<span class = "max_page">0</span>页
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="bottom">
+				<div class="lxwm">
+					<p>联系我们</p>
+					<p>新浪微博：@西安科技大学大学生记者团</p>
+					<p>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：xikejizhe@sina.com</p>
+				</div>
+
+				<div class="qr_code">
+					<p>手机扫一扫，<br />即可关注我们！</p>
+					<img src="../img/qr_code/qrcode_for_xkjzt.jpg" />
+				</div>
+				<div class="last_line">
+					
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/navigation_bar_control.js"></script>
+		<script type="text/javascript" src="../js/DateFormat.js"></script>
+		<script type="text/javascript" src="../js/GetRequestPara.js"></script>
+		<script type="text/javascript" src="../js/MyFunction.js"></script>
+		<script type="text/javascript"> 
+			function initNewsList(url,page,displayCount,useSessionPage){
+				var entityInfo = {
+						"entitylistName":"newsList",
+						"idName":"newsId",
+						"displayFileds":[
+							{"name":"newsTitle","headName":"新闻标题"},
+							{"name":"newsAuthor","headName":"记者姓名"},
+							{"name":"uploadTime","headName":"上传时间"},
+							{"name":"readAmounts","headName":"阅读量"}
+						]
+				}
+				var data = null;
+				data = getEntityList(url,page,displayCount,'',useSessionPage);
+				if(typeof(data) == undefined || data == null){
+					return;
+				}
+				initEntityList(data,entityInfo);
+				$(".max_page").text(data.maxPage);
+				$(".current_page").text(data.currentPage);
+				
+				$(".article_item>a").click(function(){
+					var newsId = $(this).prev("input").val();
+					location = "news.html?newsId="+newsId;
+				});
+				
+			}
+			
+			$(function() {
+				/*
+				if(GetRequestPara("isBack") == "true"){
+					getContentList(1,20,true);
+				}else{
+					getContentList(1,20,false);
+				}
+				*/
+				var type = GetRequestPara("type");
+				var url = "/JZTWebsite/getNewsList";
+				if(type == "search"){
+					var searchPara = location.href.substring(location.href.indexOf("?")+1);
+					url = "/JZTWebsite/searchNews?" + searchPara;
+				}else{
+					$(".current_title>p").text("新闻 ");
+				}
+				$(".current_title>p").text("新闻 ");
+				initNewsList(url,1,20,false);
+				
+				$(".article_item>a").click(function(){
+					var newsId = $(this).prev("input").val();
+					location = "news.html?newsId="+newsId;
+				});
+				
+				$(".next_page").click(function(){
+					var currentPage = Number($(".current_page").text());
+					var maxPage = Number($(".max_page").text());
+					if(currentPage == maxPage){
+						alert("已经是最后一页。");
+						return;
+					}
+					$(".article_item").remove();
+					initNewsList(url,currentPage + 1,20,false);
+				})
+				
+				$(".pre_page").click(function(){
+					var currentPage = Number($(".current_page").text());
+					if(currentPage == 1){
+						alert("已经是第一页。");
+						return;
+					}
+					$(".article_item").remove();
+					initNewsList(url,currentPage - 1,20,false);
+				})
+				
+				$(".first_page").click(function(){
+					$(".article_item").remove();
+					initNewsList(url,1,20,false);
+				})
+				
+				$(".last_page").click(function(){
+					var maxPage = Number($(".max_page").text());
+					$(".article_item").remove();
+					initNewsList(url,maxPage,20,false);
+				})
+			})
+		</script>
+	</body>
+</html>

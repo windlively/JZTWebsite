@@ -1,0 +1,151 @@
+/*内容区域*/
+.main_context{
+	position: relative;
+	top: 50px;
+	height: 650px;
+	background-color: #DBD9CC;
+}
+.search_bar{
+	position: absolute;
+	top: 15px;
+	height: 30px;
+	width: 100%;
+	line-height:30px;
+	font-size: 14px;
+	text-align: center;
+}
+#searchForm select{
+	min-height: 18px;
+	border: 1px solid #82635E;
+	background-color: #E8E8DC;
+}
+#searchForm input{
+	width: 120px;
+	height: 16px;
+	border: 1px solid #82635E;
+	border-radius: 2px;
+	background-color: #E8E8DC;
+}
+#searchForm input:focus{
+	border: 2px solid #3ACAE0; 
+}
+#searchForm input[type='submit']{
+	width: 60px;
+	border: none;
+	height: 24px;
+	background-color: silver;
+}
+#searchForm input[type='submit']:hover{
+	background-color: #91847B;
+}
+.searchPara{
+	display: inline-block;
+}
+/*新闻列表区*/
+.news_area{
+	position: absolute;
+	top: 60px;
+	width: 400px;
+	left: 0px;
+	height: 280px;
+	background-color: #DBCBB8;
+}
+.area_title{
+	color: darkred;
+	font-size: 18px;
+	font-weight: bold;
+	height: 30px;
+	width: 100%;
+	line-height: 30px;
+	border-bottom: 1px solid;
+	padding:0px 10px ;
+	box-sizing: border-box;
+}
+.news_area>ul a{
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(250px/8);
+	line-height: 30px;
+	padding: 0px 10px;
+	font-size: 14px;
+	overflow: hidden;
+}
+.news_area>ul a:hover{
+	color: #E6E6FA;
+	background-color: #BAA896;
+}
+/*瞬诗刊列表区*/
+.poetryReview_area{
+	position: absolute;
+	bottom: 10px;
+	height: 280px;
+	background-color: #82635E;
+	width: 400px;
+}
+.poetryReview_area>ul a{
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(250px/8);
+	line-height: 30px;
+	padding: 0px 10px;
+	font-size: 14px;
+	overflow: hidden;
+}
+.poetryReview_area>ul a:hover{
+	color: #E6E6FA;
+	background-color: #A49592;
+}
+
+.article_area{
+	position: absolute;
+	top: 60px;
+	right: 0px;
+	width: 605px;
+	height: 580px;
+	background-color: #C7B79D;
+}
+.article_area>.area_title{
+	color: #A52A2A;
+}
+.article_area>ul>li{
+	height: calc(550px/3);
+}
+.article_area>ul a{
+	display: inline-block;
+	box-sizing: border-box;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	font-size: 16px;
+	overflow: hidden;
+}
+.article_area>ul a:hover{
+	text-decoration: underline;
+}
+.article_preview{
+	color:#615049;
+	font-size: 14px;
+	text-justify: auto;
+	box-sizing: border-box;
+	padding: 0px 10px;
+	white-space: pre-wrap;
+	letter-spacing: 2px;
+	word-spacing: 1px;
+	text-align: justify;
+	font-family: 'STsong';
+}
+.more{
+	display: inline-block;
+	float: right;
+	font-weight: normal;
+}
+.more:hover{
+	text-decoration: underline;
+}
+.article_author{
+	color: #2F4F4F;
+	font-size: 14px;
+}

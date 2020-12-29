@@ -1,0 +1,70 @@
+
+/*CSS重置 */
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+em,
+img,
+strong,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0
+}
+
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+
+:focus {
+outline: 0;
+}
+
+body {
+font-family:  "Microsoft YaHei", Helvetica, Tahoma, StSun, SimSun, sans-serif;
+font-size: 16px;
+}
+a {
+outline: none;
+text-decoration: none;
+color: #000000;
+}
+li{
+list-style-type:none;
+}
+.clear{
+clear: both;
+}
+/*页面重置代码结束*/

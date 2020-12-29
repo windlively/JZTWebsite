@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.xkdjzt.web.dao.IArticleDao">
+		<parameterMap type="map" id="pageParameter">
+    		<parameter property="startIndex" javaType="int"/>
+    		<parameter property="itemCount" javaType="int"/>
+    	</parameterMap>
+<!--     	
+    	<resultMap type="article" id="articleResultMap">
+    		<result column="articleId" property="articleId" javaType="int" jdbcType="INTEGER"/>
+    		<result column="articleType" property="articleType" javaType="String" jdbcType="VARCHAR"/>
+    		<result column="articleTitle" property="articleTitle" javaType="String" jdbcType="VARCHAR"/>
+    		<result column="articleAuthor" property="articleAuthor" javaType="String" jdbcType="VARCHAR"/>
+    		<result column="articleContent" property="articleContent" javaType="String"/>
+    		<result column="illuatrationPictureSrc" property="illuatrationPictureSrc" javaType="String" jdbcType="VARCHAR"/>
+    		<result column="readAmounts" property="readAmounts" javaType="int" jdbcType="INTEGER"/>
+    		<result column="uploadTime" property="uploadTime" javaType="java.util.Date" jdbcType="DATE"/>
+    		<result column="updateTime" property="updateTime" javaType="java.util.Date" jdbcType="DATE"/>
+    	</resultMap>
+ -->    	
+    	<!-- 
+    	<parameterMap type="map" id="searchPara">
+    		<parameter property="articleAuthor" javaType="String"/>
+    		<parameter property="articleTitle" javaType="String"/>
+    		<parameter property="articleType" javaType="String"/>
+    		<parameter property="startDate" javaType="java.util.Date"/>
+    		<parameter property="endDate" javaType="java.util.Date"/>
+    		<parameter property="startIndex" javaType="int"/>
+    		<parameter property="itemCount" javaType="int"/>
+    	</parameterMap>
+    	 -->
+    	<select id="getArticleListByPage" resultType="article" parameterMap="pageParameter">
+    		SELECT * FROM article ORDER BY articleId DESC LIMIT #{startIndex},#{itemCount} 
+    	</select>
+    	
+    	<select id="getArticleCount" resultType="int">
+    		select count(*) from article;
+    	</select>
+    	
+    	<update id="addReadAmounts" parameterType="int">
+    		update article set readAmounts = readAmounts + 1 where articleId = #{articleId}
+    	</update>
+    	
+    	<select id="getArticleById" parameterType="int" resultType="article">
+    		select * from article where articleId = #{articleId}
+    	</select>
+    	
+    	<insert id="addArticle" parameterType="article">
+    		insert into article values (default,#{articleType},#{articleTitle},#{articleAuthor},#{articleContent},#{illuatrationPictureSrc},#{readAmounts},NOW(),NOW())
+    	</insert>
+    	
+    	<update id="updateArticle" parameterType="article">
+    		update article set
+    			articleType = #{articleType},
+    			articleTitle = #{articleTitle},
+    			articleAuthor = #{articleAuthor},
+    			articleContent = #{articleContent},
+    			illuatrationPictureSrc = #{illuatrationPictureSrc},
+    			updateTime = NOW()
+    		where articleId = #{articleId}
+    	</update>
+    	
+    	<update id="deleteArticleById" parameterType="int">
+    		delete from article where articleId = #{articleId}
+    	</update>
+    	
+    	<select id="search" resultType="article" parameterType="map">
+    		SELECT * FROM article 
+    			<trim prefix="WHERE" suffixOverrides="AND">
+    				<if test="null != articleType and '' != articleType">
+	    				articleType = #{articleType} AND
+	    			</if>
+	    			<if test="null != articleTitle and '' != articleTitle">
+	    				articleTitle LIKE CONCAT('%',#{articleTitle},'%') AND
+	    			</if>
+	    			<if test="null != articleAuthor and '' != articleAuthor">
+	    				articleAuthor LIKE CONCAT('%',#{articleAuthor},'%') AND
+	    			</if>
+	    			<if test="startDate != null">
+	    				  uploadTime &gt; #{startDate} AND
+	    			</if>
+					<if test="endDate != null">
+	    				uploadTime &lt; #{endDate}
+	    			</if>
+    			 </trim>
+    			 ORDER BY articleId DESC
+    			 <if test="itemCount != null and itemCount != 0">
+    			 	LIMIT #{startIndex},#{itemCount}
+    			 </if>
+    	</select>
+    	
+    	<select id="getSearchedCount" parameterType="map" resultType="int">
+    		SELECT COUNT(*) FROM article 
+    			<trim prefix="WHERE" suffixOverrides="AND">	
+	    			<if test="articleTitle != null and '' != articleTitle">
+	    				articleTitle LIKE CONCAT('%',#{articleTitle},'%') AND
+	    			</if>
+	    			<if test="articleAuthor != null and '' != articleAuthor">
+	    				articleAuthor LIKE CONCAT('%',#{articleAuthor},'%') AND
+	    			</if>
+	    			<if test="startDate != null">
+	    				uploadTime &gt; #{startDate} AND
+	    			</if>
+					<if test="endDate != null">
+	    				uploadTime &lt; #{endDate} AND
+	    			</if>
+	    			<if test="articleType != null and article != ''">
+	    				articleType = #{articleType}
+	    			</if>
+    			 </trim>
+    	</select>
+    	
+    	<select id="getMaxId" resultType="int">
+    		SELECT MAX(articleId) FROM article
+    	</select>
+    	
+    </mapper>

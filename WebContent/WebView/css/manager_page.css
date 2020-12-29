@@ -1,0 +1,319 @@
+body{
+	width: 100%;
+	height: 100%;
+	background-image: url("../img/manager_bg.png");
+	background-size: cover;
+}
+.body{
+	position: relative;
+	width:1280px;
+	height:100%;
+	margin-left: auto;
+	margin-right: auto; 
+}
+.title{
+	display:none;
+	position:relative;
+	height:50px;
+	line-height:50px;
+	text-align: center;
+}
+.clear_float{
+	clear:both;
+}
+.main_content{
+	position:relative;
+	display:none;
+	float:right;
+	width:1080px;
+	height: 620px;
+}
+.current_title{
+	position: relative;
+	width:100%;
+	height:30px;
+	line-height:30px;
+	color: #F2F2F5;
+	padding-left:10px; 
+}
+.current_title_bg{
+	position: absolute;
+	top:0px;
+	left:0px;
+	width: 100%;
+	height: 30px;
+	background-color: #EA185F;
+	opacity:0.8;
+	z-index: -1;
+	box-shadow: 1px 1px 1px #000
+}
+.manager_area_bg{
+	position: absolute;
+	top:30px;
+	left:0px;
+	width:100%;
+	height:590px;
+	background-color: #325D7F;
+	opacity:0.2;
+	z-index: -1;
+}
+.option_list{
+	display:none;
+	position:absolute;
+	width: 180px;
+}
+.option_list>li{
+	min-height:28px;
+	line-height:28px;
+	position: relative;
+	margin:20px auto;
+	background-color: #fbceae;
+	box-shadow: 0px 4px 4px #c6c6aa;
+}
+.option_list>.news_manager{
+	
+}
+.option_list>.article_manager{
+
+}
+.option_list>.poetry_review_manager{
+	
+}
+.option_list>.abouts_manager{
+
+}
+.option_list>li>a{
+	display: block;
+	width: 100%;
+	font-size: 16px;
+	color: olive;
+}
+.option_list>li>a:hover{
+	background-color: maroon;
+	color:white;
+}
+.secondary_menu{
+	display:none;
+	list-style-type: none;
+	background-color: #84af9c;
+}
+.secondary_menu a{
+	display:block;
+	color: #FFFFFF;
+}
+.secondary_menu a:hover{
+	background-color: #f69b9a;
+	color:white;
+}
+.manager_area{
+	position:relative;
+	width:100%;
+	height:590px;
+	overflow: auto;
+	resize:both;
+}
+form{
+	margin:20px 40px;
+	color: #7A6764;
+	line-height: 28px;
+}
+form textarea{
+	resize:none;
+	width:600px;
+	height:400px;
+	margin: 2px 0px;
+	padding:10px;
+	font-family: "Microsoft YaHei";
+	border: none;
+	background-color: #D1C3A8;
+	border-radius: 2px;
+}
+form span{
+	display: inline-block;
+	vertical-align: top;
+}
+
+form select,
+form input{
+	display:inline-block;
+	height:20px;
+	border:0 #E1EEC3;
+	background-color: #EDE1D3;
+	border-radius: 2px;
+}
+
+form textarea:focus,
+form input:focus{
+	border:2px solid #3ACAE0;
+}
+
+form input[type='file']{
+	border: none;
+	background-color: ;
+}
+
+input[type='button'],
+form input[type='reset'],
+form input[type='submit']{
+	line-height:24px;
+	width:40px;
+	height:24px;
+	margin:10px 10px;
+	border: none;
+	border-radius: 3px;
+}
+
+table input[type='button']{
+	margin:0px 10px;
+}
+
+input[type='button']:hover,
+form input[type='reset']:hover,
+form input[type='submit']:hover{
+	background-color:  #DDD1C3;
+}
+
+form textarea[name='pictureInfo']{
+	resize: none;
+	height: 100px;
+	width: 400px;
+}
+.page_control {
+	position: fixed;
+	width: auto;
+	height: 30px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 2;
+}
+	
+.page_control ul {
+	position: relative;
+	height: 100%;
+}
+
+.page_control li {
+	float: right;
+	text-align: center;
+	width: inherit;
+	line-height: 30px;
+	height: 100%;
+	background-color: #C6C6AA;
+}
+	
+.page_control a {
+	display: inline-block;
+	font-size: 15px;
+	color: brown;
+	width: 60px;
+	height: 30px;
+	background-color: #C6C6AA;
+}
+	
+.page_index{
+	display: inline-block;
+	font-size: 15px;
+	padding:0px 5px;
+	color: brown;
+	width: auto;
+	height: 30px;
+	background-color: #DEB887;
+}
+
+table{
+	width: 100%;
+	font-size: 14px;
+}
+
+table[class='poetryReviewList']{
+	width:1400px;
+}
+
+table th{
+	height:30px;
+	font-size:16px;
+	border-bottom: 1px dotted #9E6831;
+}
+
+table td{
+	overflow: hidden;
+}
+
+table input[type='text']{
+	min-width: 140px;
+	height:18px;
+	background-color: #DBECC2;
+	border:none;
+}
+
+table input[type='text']:focus{
+	background-color: #EBFCD2;
+	border: 1px solid #ADDCC8;
+	box-shadow: inset 1px 1px 2px #ADDCC8;
+}
+
+div[class='indexPictureManager']{
+	margin: 20px;
+	text-align: center;
+	position: relative;
+}
+div[class='indexPictureManager']>p{
+	height: 30px;
+	line-height: 30px;
+	font-size:18px;
+	color: white;
+}
+p[class='pictureName']{
+	padding:10px;
+	position:absolute;
+	top: 0px;
+	width: auto;
+	left: 0px;
+	background-color: black;
+	opacity: 0.4;	
+}
+p[class='pictureInfo']{
+	position:absolute;
+	padding:10px;
+	top: 50px;
+	text-align:justify;
+	width: 300px;
+	height:auto;
+	left: 0px;
+	background-color: black;
+	font-size:14px;
+	opacity: 0.4;
+}
+div[class='indexPictureManager'] a{
+	display:block;
+	padding: 10px;
+	position: absolute;
+	right: 0px;
+	height: 40px;
+	width:80px;
+	text-align:center;
+	line-height: 40px;
+	background: black;
+	color: white;
+	opacity: 0.6;
+}
+
+div[class='indexPictureManager'] a:hover{
+	background: red;
+}
+
+div[class='indexPictureManager'] a[class='update']{
+	top: 180px;
+}
+
+div[class='indexPictureManager'] a[class='delete']{
+	bottom: 180px;
+}
+.page_control a:hover {
+	background: #DEB887;
+}
+
+.main_content .manager_area form textarea[disabled="disabled"],
+.main_content .manager_area form input[disabled="disabled"]{
+	background-color: silver;
+}

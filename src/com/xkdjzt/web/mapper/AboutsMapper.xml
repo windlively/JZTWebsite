@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN  " 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xkdjzt.web.dao.IAboutsDao">
+  <select id="getAboutsOrganization" resultType="aboutsOrganization">
+  	SELECT * FROM abouts_organization WHERE id = 1;
+  </select>
+  
+  <update id="updateAboutsOrganization" parameterType="aboutsOrganization">
+  	UPDATE abouts_organization SET 
+  		<if test="content != null and content != '' ">
+  			content = #{content} ,
+  		</if>
+  		updateTime = NOW() WHERE id = 1;
+  </update>
+  
+  <select id="getAboutsTeam" resultType="aboutsTeam">
+  	SELECT * FROM abouts_team WHERE id = 1;
+  </select>
+  
+  <update id="updateAboutsTeam" parameterType="aboutsTeam">
+	UPDATE abouts_team SET 
+  		<if test="content != null and content != '' ">
+  			content = #{content} ,
+  		</if>
+  		updateTime = NOW() WHERE id = 1;  
+  </update>
+  
+</mapper>
